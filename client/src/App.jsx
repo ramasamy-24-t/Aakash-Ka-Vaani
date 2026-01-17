@@ -50,9 +50,14 @@ const AppContent = () => {
 
         {/* FOOTER */}
         <footer className="p-6 text-center space-y-2">
-          <p className="text-white/80 text-sm font-semibold tracking-wide">
+          <a
+            href="https://ramasamyt.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/80 text-sm font-semibold tracking-wide hover:text-blue-400 transition-colors block"
+          >
             {t.createdBy}
-          </p>
+          </a>
           <p className="text-white/30 text-[10px] font-medium tracking-widest uppercase">
             {t.poweredBy}
           </p>
