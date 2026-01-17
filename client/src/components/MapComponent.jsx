@@ -142,8 +142,8 @@ const Legend = ({ activeOverlays, weather, t }) => {
     }
 
     return (
-        <div style={{ position: 'fixed', left: 24, bottom: 24, zIndex: 2147483647, pointerEvents: 'none' }}>
-            <div className="glass-panel p-4 rounded-3xl flex flex-col gap-3 pointer-events-auto shadow-[0_20px_50px_rgba(0,0,0,0.7)] border border-white/10 bg-black/80 backdrop-blur-2xl min-w-[220px]">
+        <div style={{ position: 'absolute', left: 24, bottom: 24, zIndex: 999, pointerEvents: 'none' }}>
+        <div className="glass-panel p-4 rounded-3xl flex flex-col gap-3 pointer-events-auto shadow-[0_20px_50px_rgba(0,0,0,0.7)] border border-white/10 bg-black/80 backdrop-blur-2xl min-w-[220px]">
                 <span className="text-[11px] font-bold text-white/50 uppercase tracking-[0.2em] text-center mb-1">{config.label}</span>
 
                 <div className="flex flex-col gap-3">
