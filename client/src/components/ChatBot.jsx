@@ -125,7 +125,7 @@ const ChatBot = () => {
                                 <h3 className="text-white font-semibold flex items-center gap-2">
                                     Umbrella Man <Sparkles size={12} className="text-yellow-400" />
                                 </h3>
-                                <p className="text-xs text-blue-300/70">Online • Budget-friendly & Fast</p>
+                                <p className="text-xs text-blue-300/70">Online • Rain or Shine • I’ve Got You</p>
                             </div>
                         </div>
                         <button
