@@ -8,12 +8,11 @@ import chatRoutes from './routes/chat.js';
 
 dotenv.config();
 const app = express();
-// Security: Restrict CORS to trusted domains
+
 const allowedOrigins = ['http://localhost:5173', process.env.CLIENT_URL];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
-
 
         if (
             allowedOrigins.includes(origin) ||
@@ -28,19 +27,59 @@ app.use(cors({
     },
     credentials: true
 }));
+app.use(express.json()); 
 
-app.use(express.json()); // Allow parsing JSON body
 
-// Database Connection
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/weather_app')
-    .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.error('MongoDB Connection Error:', err));
+let cached = global.mongoose;
+
+if (!cached) {
+    cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function connectDB() {
+    if (cached.conn) {
+        return cached.conn;
+    }
+
+    if (!cached.promise) {
+        const opts = {
+            bufferCommands: false, // Disable Mongoose buffering to fail fast if not connected
+        };
+        const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/weather_app';
+
+        cached.promise = mongoose.connect(mongoURI, opts).then((mongoose) => {
+            console.log('✅ New MongoDB Connection Established');
+            return mongoose;
+        });
+    }
+
+    try {
+        cached.conn = await cached.promise;
+    } catch (e) {
+        cached.promise = null;
+        console.error('❌ MongoDB Connection Error:', e);
+        throw e;
+    }
+
+    return cached.conn;
+}
+
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (error) {
+        res.status(500).json({ error: 'Database connection failed' });
+    }
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/chat', chatRoutes);
 
 const PORT = 5000;
+
+
 
 // Unified endpoint to get Weather (Current + Forecast) and AQI from OpenWeatherMap
 app.get('/api/report', async (req, res) => {
