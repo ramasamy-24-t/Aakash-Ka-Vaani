@@ -23,14 +23,30 @@ const ChatBot = () => {
         scrollToBottom();
     }, [messages, isOpen]);
 
+    // Reinitialize chat when user logs out
+    useEffect(() => {
+        if (!user) {
+            setMessages([]);
+        }
+    }, [user]);
+
     const sendMessage = async (e) => {
         e.preventDefault();
+
         if (!input.trim() || isLoading) return;
 
         const userMessage = { role: 'user', content: input };
         setMessages(prev => [...prev, userMessage]);
         setInput('');
-        setIsLoading(true);
+
+        // Enforce login on send
+        if (!user) {
+            setTimeout(() => {
+                setMessages(prev => [...prev, { role: 'assistant', content: "Please log in to continue chatting with me." }]);
+                setTimeout(() => setIsAuthModalOpen(true), 1000); // Open modal after a second
+            }, 500);
+            return;
+        }
 
         try {
             const response = await axios.post('http://localhost:5000/api/chat', {
@@ -76,7 +92,7 @@ const ChatBot = () => {
                                 </div>
 
                                 <button
-                                    onClick={() => user ? setIsOpen(true) : setIsAuthModalOpen(true)}
+                                    onClick={() => setIsOpen(true)}
                                     className="px-6 py-2.5 bg-blue-600/20 hover:bg-blue-600/30 text-blue-200 rounded-xl border border-blue-500/30 transition-all font-medium text-sm flex items-center gap-2"
                                 >
                                     <MessageSquare size={16} />

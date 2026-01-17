@@ -42,7 +42,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             />
 
             {/* Modal */}
-            <div className="relative w-full max-w-md bg-black/40 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl animate-in zoom-in-95 duration-300">
+            <div className="relative w-full max-w-md bg-black/40 backdrop-blur-xl border border-white/20 rounded-3xl p-6 md:p-8 shadow-2xl animate-in zoom-in-95 duration-300 mx-4">
                 <button
                     onClick={onClose}
                     className="absolute top-4 right-4 p-2 text-white/50 hover:text-white transition-colors rounded-full hover:bg-white/10"
@@ -50,11 +50,11 @@ const AuthModal = ({ isOpen, onClose }) => {
                     <X size={20} />
                 </button>
 
-                <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold text-white mb-2">
+                <div className="text-center mb-6 md:mb-8">
+                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
                         {isLogin ? 'Welcome Back' : 'Join Us'}
                     </h2>
-                    <p className="text-white/60">
+                    <p className="text-white/60 text-sm md:text-base">
                         {isLogin ? 'Enter your details to access your account' : 'Start your journey with us today'}
                     </p>
                 </div>
@@ -65,41 +65,41 @@ const AuthModal = ({ isOpen, onClose }) => {
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
                     {!isLogin && (
                         <div className="relative">
-                            <User className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={20} />
+                            <User className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} />
                             <input
                                 type="text"
                                 placeholder="Full Name"
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-2.5 md:py-3 pl-11 md:pl-12 pr-4 text-white placeholder-white/30 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                 required={!isLogin}
                             />
                         </div>
                     )}
 
                     <div className="relative">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={20} />
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} />
                         <input
                             type="email"
                             placeholder="Email Address"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-2.5 md:py-3 pl-11 md:pl-12 pr-4 text-white placeholder-white/30 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                             required
                         />
                     </div>
 
                     <div className="relative">
-                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={20} />
+                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} />
                         <input
                             type="password"
                             placeholder="Password"
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-2.5 md:py-3 pl-11 md:pl-12 pr-4 text-white placeholder-white/30 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                             required
                         />
                     </div>
@@ -115,14 +115,14 @@ const AuthModal = ({ isOpen, onClose }) => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-2xl transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 mt-2"
+                        className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 md:py-3.5 rounded-2xl transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 mt-2 text-sm md:text-base"
                     >
                         {loading ? (
                             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                         ) : (
                             <>
                                 {isLogin ? 'Sign In' : 'Create Account'}
-                                <ArrowRight size={20} />
+                                <ArrowRight size={18} />
                             </>
                         )}
                     </button>
