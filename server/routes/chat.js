@@ -21,8 +21,6 @@ router.post('/', async (req, res) => {
     }
     try {
         console.log("Chat Request Received");
-        console.log("Using Model:", process.env.GROQ_MODEL);
-        console.log("API Key Present:", !!process.env.GROQ_API_KEY);
 
         const { message, weatherData } = req.body;
 
